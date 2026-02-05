@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Message</title>
+    <style>
+        body {
+            background-color: #ffeef2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Georgia', serif;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            z-index: 10;
+            max-width: 400px;
+            transition: all 0.5s ease-in-out;
+        }
+
+        h1 { color: #d63384; font-size: 1.8rem; }
+        
+        /* Buttons */
+        .buttons { display: flex; gap: 20px; justify-content: center; margin-top: 20px; }
+        button {
+            padding: 12px 25px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        #yesBtn { background-color: #ff4d6d; color: white; }
+        #noBtn { background-color: #adb5bd; color: white; position: relative; }
+
+        /* The Love Letter - Hidden by default */
+        #loveLetter {
+            display: none;
+            text-align: left;
+            line-height: 1.6;
+            color: #444;
+            animation: fadeIn 1.5s;
+        }
+
+        .signature {
+            margin-top: 20px;
+            text-align: right;
+            font-style: italic;
+            font-weight: bold;
+            color: #d63384;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Floating Hearts */
+        .heart {
+            position: absolute;
+            color: #ff4d6d;
+            font-size: 1.5rem;
+            animation: float 5s linear infinite;
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); }
+            100% { transform: translateY(-10vh) rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="mainCard">
+        <div id="askSection">
+            <h1>Will you be my Valentine? ❤️</h1>
+            <div class="buttons">
+                <button id="yesBtn" onclick="openLetter()">Yes!</button>
+                <button id="noBtn" onmouseover="moveButton()">No</button>
+            </div>
+        </div>
+
+        <div id="loveLetter">
+            <h1>To My Favorite Person,</h1>
+            <p>I wanted to take a moment to tell you how much you mean to me. You make every day brighter just by being in it. Thank you for the laughs, the support, and all the little moments in between.</p>
+            <p>I'm so lucky to have you in my life. Happy Valentine's Day!</p>
+            <div class="signature">With all my love, <br> [Your Name]</div>
+        </div>
+    </div>
+
+    <script>
+        function moveButton() {
+            const btn = document.getElementById('noBtn');
+            const x = Math.random() * (window.innerWidth - btn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - btn.offsetHeight);
+            btn.style.position = 'absolute';
+            btn.style.left = x + 'px';
+            btn.style.top = y + 'px';
+        }
+
+        function openLetter() {
+            // Hide the question, show the letter
+            document.getElementById('askSection').style.display = 'none';
+            document.getElementById('loveLetter').style.display = 'block';
+            
+            // Make the card a bit wider for the text
+            document.getElementById('mainCard').style.maxWidth = '600px';
+        }
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => { heart.remove(); }, 5000);
+        }
+
+        setInterval(createHeart, 300);
+    </script>
+</body>
+</html>
